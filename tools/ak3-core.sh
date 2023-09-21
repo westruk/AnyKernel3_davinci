@@ -1,4 +1,4 @@
-### AnyKernel methods (DO NOT CHANGE)
+### AnyKernel methods
 ## osm0sis @ xda-developers
 
 [ "$OUTFD" ] || OUTFD=$1;
@@ -156,7 +156,7 @@ unpack_ramdisk() {
   if [ -f ramdisk.cpio ]; then
     comp=$($bin/magiskboot decompress ramdisk.cpio 2>&1 | grep -v 'raw' | sed -n 's;.*\[\(.*\)\];\1;p');
   else
-    # echo "No ramdisk found to unpack.";
+    abort "No ramdisk found to unpack. Aborting...";
   fi;
   if [ "$comp" ]; then
     mv -f ramdisk.cpio ramdisk.cpio.$comp;
@@ -174,7 +174,7 @@ unpack_ramdisk() {
   cd $ramdisk;
   EXTRACT_UNSAFE_SYMLINKS=1 cpio -d -F $split_img/ramdisk.cpio -i;
   if [ $? != 0 -o ! "$(ls)" ]; then
-    # echo "Unpacking ramdisk failed.";
+    abort "Unpacking ramdisk failed. Aborting...";
   fi;
   if [ -d "$home/rdtmp" ]; then
     cp -af $home/rdtmp/* .;
@@ -231,7 +231,7 @@ repack_ramdisk() {
     fi;
   fi;
   if [ "$packfail" ]; then
-    # echo "Repacking ramdisk failed.";
+    abort "Repacking ramdisk failed. Aborting...";
   fi;
 
   if [ -f "$bin/mkmtkhdr" -a -f "$split_img/boot.img-base" ]; then
