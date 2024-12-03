@@ -4,7 +4,7 @@
 ### AnyKernel setup
 # global properties
 properties() { '
-kernel.string=MilkKernel by SchweGELBin
+kernel.string=InfinitykKernel
 do.devicecheck=1
 do.modules=0
 do.systemless=1
